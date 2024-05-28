@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="../js/d3/d3.js">// D3.js</script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Notifications Hub|Home</title>
+</head>
+<body>
+	<main role="main" class="container">
+		<div class="d-flex align-items-center p-3 my-3 text-dark bg-secondary rounded box-shadow">
+			<div class="mb-0 text-dark lh-100">
+				<img src="../imgs/image222.png" alt="Custom logo image by Daniel Surla" class="mr-3" width="32" height="32">
+				<h1 class="mb-0 text-dark lh-100">Roster Calendar</h1>
+				<p><i>Human Resource Management</i></p>
+			</div>
+		</div>
+		<div class="my-p3 p-3 bg-white rounded box-shadow">
+			<span>
+				<label for="staff-member-name">
+					<div class="media text-justify pt-3">
+						<h1 class="media-body pb-3 mb-0 large lh-100">
+							<strong class="d-block text-dark" id="staff-member-name">John Doe</strong>
+						</h1>
+					</div>
+				</label>
+			</span>
+
+			<table class="table" id="notifs-table">
+				<!-- <script src="../js/NotifsHub.js"></script> -->
+			</table>
+
+			<a href="./RosterAndAllocate.html" class="btn btn-lg btn-primary btn-block">To Roster</a>
+		</div>
+	</main>
+</body>
+</html>
+
+<script type="text/javascript">
+import * as d3 from "d3"
+
+function renderView() {
+	const dataset = d3.json("../data/notifsHub.js")
+
+	const windowDimensions = {
+		width: window.innerWidth,
+		height: window.innerHeight,
+	}
+
+	var margin = { top: 10, right: 10, bottom: 10, left: 10 },
+			width = 960 - margin.left - margin.right,
+			height = 640 - margin.top - margin.bottom;
+		
+	var svg = d3.select('body').append('svg')
+		.attr('width', windowDimensions.width + margin.left + margin.right)
+		.attr('height', windowDimensions.height + margin.top + margin.bottom)
+		.append('g')
+		.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+	const notifsTable = d3.select("#notifs-table")
+
+	const maxRows = 8
+	const maxColumns = 4
+
+	const dateOfAccessor = d => d.dateOf,
+		timeOfAccessor = d => d.timeOf,
+		titleOfAccessor = d => d.titleOf,
+		messageOfAccessor = d => d.messageOf
+
+	const notifs = [
+		{date: dateOfAccessor, time: timeOfAccessor, title: titleOfAccessor, message: messageOfAccessor}
+	]
+	
+	notifsTable.append("thead").append("tr")
+		.selectAll("thead")
+		.data(notifs)
+		.join("th")
+			.text(d => d.date)
+
+	const renderInnerHtml = notifsTable.append("tbody")
+
+	dataset.slice(0, maxRows).array.forEach(() => {
+		renderInnerHtml.append("tr")
+			.selectAll("td")
+			.data(notifs)
+			.join("td")
+	});
+} renderView()
+</script>

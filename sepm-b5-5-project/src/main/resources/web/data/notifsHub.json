@@ -1,0 +1,11 @@
+{
+	"data": [
+		{"dateOf": "May 24, 2021", "timeOf": "11:01AM", "titleOf": "Shift Roster Updated",
+			"messageOf": "Your shift has been updated, please check your online roster calendar."},
+		{"dateOf": "June 3, 2021", "timeOf": "1:58PM", "titleOf": "Leave Approved", "messageOf":  "Your leave for the 27th of June has been approved."},
+		{"dateOf": "June 8, 2021", "timeOf": "2:23PM", "titleOf": "Your pay has been submitted", "messageOf":  "Bethany from HR has forwarded and submitted your pay."},
+		{"dateOf": "June 9, 2021", "timeOf": "10:30AM", "titleOf": "Daniel David has asked for a shift swap", "messageOf":  "Daniel David is requesting a change of shift with you."},
+		{"dateOf": "June 11, 2021", "timeOf": "10:33AM", "titleOf": "Daniel David has cancelled the shift swap", "messageOf":  "This is an automated message, please refer to the title."},
+		{"dateOf": "June 16, 2021", "timeOf": "11:50AM", "titleOf": "Vincenze Dubois is requesting your compliance", "messageOf":  "Vincenze Dubois needs help in the sales department. He has messaged you through the company email."}
+	]
+}

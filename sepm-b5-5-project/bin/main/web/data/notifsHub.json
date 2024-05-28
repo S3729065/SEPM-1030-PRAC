@@ -1,0 +1,11 @@
+{
+	"data": [
+		["May 24, 2021", "11:01AM", "Shift Roster Updated",
+			"Your shift has been updated, please check your online roster calendar."],
+		["June 3, 2021", "1:58PM", "Leave Approved", "Your leave for the 27th of June has been approved."],
+		["June 8, 2021", "2:23PM", "Your pay has been submitted", "Bethany from HR has forwarded and submitted your pay."],
+		["June 9, 2021", "10:30AM", "Daniel David has asked for a shift swap", "Daniel David is requesting a change of shift with you."],
+		["June 11, 2021", "10:33AM", "Daniel David has cancelled the shift swap", "This is an automated message, please refer to the title."],
+		["June 16, 2021", "11:50AM", "Vincenze Dubois is requesting your compliance", "Vincenze Dubois needs help in the sales department. He has messaged you through the company email."]
+	]
+}

@@ -1,0 +1,7 @@
+{
+	"data": [
+		{"name": "John Doe", "days": "Monday, Tuesday, Wednesday, Friday", "time": "9:00AM - 5:00PM"},
+		{"name": "Daniel David", "days": "Tuesday, Wednesday, Friday", "time": "6:00AM - 2:00PM"},
+		{"name": "Vincenze Dubois", "days": "Monday, Wednesday, Friday", "time": "2:00PM - 10:00PM"}
+	]
+}

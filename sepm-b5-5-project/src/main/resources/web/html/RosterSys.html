@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="../js/d3/d3.js">// D3.js</script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Roster</title>
+</head>
+<div class="jumbotron text-center">
+	<h1><small>Roster </small>Calendar</h1>
+	<p><i>Shift Allocation Form</i></p>
+</div>
+
+<a href="Home.html" class="btn btn-secondary">Return</a>
+<br>
+
+<div class="col-xs-6 col-sm-4">
+	<br>
+	<h2 id="staff-member-name">John Doe</h2>
+	<p>This is the Roster Calendar. <br>
+		Input your shift details here.
+	</p>
+</div>
+
+<body class="container"> <!--This is where the body is at. A comment is here serving as a code line-break-->
+<!--Code Line Break!-->
+<!--Double Code LINE BREAK!!-->
+
+<table class="table" id="roster-calendar">
+	<!-- <script type="text/javascript" src="../js/CardSystem.js">// CardSystem.js // NOTE(Daniel): by Daniel Surla</script> -->
+</table>
+
+<button class="btn btn-sm btn-danger" id="remove-shift-button" name="removeShift" value="removeShiftValue">Remove Shift</button>
+<br>
+
+<div class="mx-auto">
+	<div class="col-md-4 offset-md-4 text-left">
+		<form class="form-group">
+			<br>
+			<label for="staff-member-name-opts">Time</label>
+			<select name="staffMemberName" id="staff-member-name-opts" class="form-control">
+				<option value="staffMemberNameValue">John Doe</option>
+				<option value="egA1StaffMemberNameValue">Vincenze Dubois</option>
+				<option value="egB2StaffMemberNameValue">Daniel David</option>
+			</select>
+
+			<label for="days-of-allocation-opts">Day</label>
+			<select name="allocatedDay" id="days-of-allocation-opts" class="form-control">
+				<option value="Monday">Monday</option>
+				<option value="Tuesday">Tuesday</option>
+				<option value="Wednesday">Wednesday</option>
+				<option value="Thursday">Thursday</option>
+				<option value="Friday">Friday</option>
+			</select>
+
+			<label for="time-for-staff-opts">Time</label>
+			<select name="memberChosenTime" id="time-for-staff-opts" class="form-control">
+				<option value="6:00AM-2:00PM">6:00AM-2:00PM</option>
+				<option value="9:00AM-5:00PM">9:00AM-5:00PM</option>
+				<option value="2:00PM-10:00PM">2:00PM-10:00PM</option>
+			</select>
+			<br>
+			
+			<button class="btn btn-sm btn-primary" id="allocate-shift-button" name="allocateShift" value="allocateShiftValue">Allocate Shift</button>
+		</form>
+	</div>
+</div>
+<!--T R I P L E Code Line Break!-->
+<!--QUADRUPLE Code ... LINE BREAK!!!-->
+</body>
+<!---->
+<footer></footer>
+</html>
+
+<script type="text/javascript">
+import * as d3 from "d3"
+
+async function renderBuild() {
+	const windowDimensions = {
+	    width: 
+	      window.innerWidth * 0.73,
+	    height: 
+	      640,
+	    margin: 
+	      ({top: 64, left: 8, right: 8, bottom: 16}),
+	    length:
+	      64
+  	}
+
+	const kanbanTable = {
+		kanban: {
+			height: "480px",
+			width: "640px",
+		},
+
+		cells: {
+			height: "30px",
+			width: "40px",
+		},
+	}
+
+	const dataset = await d3.json("../data/staffWorkshifts.json")
+
+	const parseDate = d3.timeParse("%d-%m-%Y")
+	const dateAccessor = d => parseDate(d.dateAvailability)
+
+	const dateFmt = d => d3.timeFormat("%-d/%m")
+	const hoursFmt = d => d3.timeFormat("%-I %p")(new Date(d * 1000))
+	const format24hrs = d => d3.timeFormat("%H")(new Date(d * 1000))
+
+	const rosterCalendar = d3.select("#roster-calendar")
+
+	const maxRows = 4
+	const maxColumns = 5
+
+	let nametagAccessor = d => d.nametag,
+		columnAccessor = d => d.daysAvailable,
+		cellAccessor = d => d.shiftHours
+
+	const shifts = [
+		{name: nametagAccessor, days: columnAccessor, hours: cellAccessor}
+	]
+
+	rosterCalendar.append("thead").append("tr")
+		.selectAll("thead")
+		.data(shifts)
+		.join("th")
+			.text(d => d.name)
+
+	let bodyInnerHtml = rosterCalendar.append("tbody")
+
+	let scaleCells = d3.scaleLinear()
+		.domain(d3.extent(dataset, cellAccessor))
+		.range([windowDimensions.margin.top, windowDimensions.height - windowDimensions.margin.bottom])
+
+	let scaleColumns = d3.scaleLinear()
+		.domain(d3.extent(dataset, columnAccessor))
+		.range([windowDimensions.margin.top, windowDimensions.height - windowDimensions.margin.bottom])
+
+	dataset.slice(0, maxRows).forEach(() => {
+		bodyInnerHtml.append("tr")
+			.selectAll("td")
+			.data(shifts)
+			.join("td")
+				.text(header => dateFmt(header))
+	})
+} renderBuild()
+
+/* function eventHandle() {
+	const kanbanTable = {
+		kanban: {
+			height: "480px",
+			width: "640px",
+		},
+
+		cells: {
+			height: "30px",
+			width: "40px",
+		},
+	}
+
+	const cards = d3.select("svg")
+		.data(kanbanTable)
+		.selectAll(".rect")
+		.append("rect")
+		.join("rect")
+			.attr("height", kanbanTable.cells.height)
+			.attr("width", kanbanTable.cells.width)
+
+		cards.on("mouseenter", (i, j) => {
+			const select = d3.select(i.currentTarget)
+			select.attr("", j)
+		})
+
+		cards.on("mouseleave", (i, j) => {
+			const select = d3.select(i.currentTarget)
+			select.attr("", j)
+		})
+} eventHandle() */
+</script>

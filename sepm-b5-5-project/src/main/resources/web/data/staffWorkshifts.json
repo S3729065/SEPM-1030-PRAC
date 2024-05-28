@@ -1,0 +1,7 @@
+{
+	"data": [
+		{"nametag": "John Doe", "daysAvailable": "Monday, Tuesday, Wednesday, Friday", "shiftHours": "9:00AM - 5:00PM"},
+		{"nametag": "Daniel David", "daysAvailable": "Tuesday, Wednesday, Friday", "shiftHours": "6:00AM - 2:00PM"},
+		{"nametag": "Vincenze Dubois", "daysAvailable": "Monday, Wednesday, Friday", "shiftHours": "2:00PM - 10:00PM"}
+	]
+}
